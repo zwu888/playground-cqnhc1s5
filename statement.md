@@ -1,19 +1,43 @@
-# Welcome!
-
-This C++ template lets you get started quickly with a simple one-page playground.
-
+# 
 ```C++ runnable
 #include <iostream>
 
+const int MAX_SIZE = 100;
 using namespace std;
 
-int main() 
+void parenthesis(int pos, int n, int open, int close)
 {
-    cout << "Hello, World!";
+    static char str[MAX_SIZE];
+    
+    if (close == n)
+    {
+        cout << str << "\n";
+    }
+    else
+    {
+        if (open > close) 
+        {
+            str[pos] = '}';
+            parenthesis(pos+1, n, open, close+1);
+        }
+        if (open < n) 
+        {
+            str[pos] = '{';
+            parenthesis(pos+1,n, open+1, close);
+        }
+    }
+ }
+ 
+ void printParenthesis(int n)
+ {
+    if (n>0) {
+        parenthesis(0,n,0,0);
+    }
+ }
+ 
+ int main() {
+    int n = 5;
+    printParenthesis(n);
+    cout << endl;
     return 0;
-}
-```
-
-# Advanced usage
-
-If you want a more complex example (external libraries, viewers...), use the [Advanced C++ template](https://tech.io/select-repo/598)
+ }
